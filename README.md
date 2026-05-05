@@ -123,7 +123,7 @@ git clone https://github.com/BuddySirJava/Mint.git
 cd Mint
 mvn clean package
 *(Append `-Pproduction` to apply shrinking).*
-
+```
 ## License & Credits
 
 Licensed under [GPLv3](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii. See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.
