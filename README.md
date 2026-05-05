@@ -21,30 +21,30 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/vertical-slab.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/vertical-slab.mp4
   
-  <video src="media/modules/mixed-slab.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/mixed-slab.mp4
   </details>
 
 - **Block Decoration:** Apply decorative skins to various blocks (fences, stairs, trapdoors, pots, etc.).
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/block-decoration.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/block-decoration.mp4
   </details>
 
 - **Carpet Geometry:** Craft geometric carpet patterns via the stonecutter.
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/carpet-geometry.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/carpet-geometry.mp4
   </details>
 
 - **Ladder Place:** Quickly place ladders above/below your current position.
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/fast-ladder.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/fast-ladder.mp4
   </details>
 
 **Movement & Transportation**
@@ -53,7 +53,7 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/bedrock-bridging.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/bedrock-bridging.mp4
   </details>
 
 - **Fast Ladders & Sprint Retention:** Climb smoother and keep momentum after stopping.
@@ -62,7 +62,7 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/chicken-pickup.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/chicken-pickup.mp4
   </details>
 
 **Interaction & Convenience**
@@ -71,7 +71,7 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/autotool.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/autotool.mp4
   </details>
 
 - **Doors:** Double doors open together, left-click to knock.
@@ -79,7 +79,7 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
   <details>
   <summary>View Demo</summary>
   
-  <video src="media/modules/slab-breaker.mp4" controls></video>
+  https://github.com/BuddySirJava/mint/raw/refs/heads/main/media/modules/slab-breaker.mp4
   </details>
 
 **Aesthetics**
@@ -93,7 +93,7 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
 2. Drop it into your `plugins/` folder and restart.
 3. Configure settings via `plugins/Mint/config.yml`.
 
-**Requirements:** Paper $1.21.4$+, Java $17$+. 
+**Requirements:** Paper 1.21.4+, Java 17+. 
 *Upgrading from the legacy plugin?* Move your old configs to `plugins/Mint/`. Permissions and placeholders now use the `mint` prefix (e.g., `%mint_modules_total%`).
 
 ## Commands & Permissions
