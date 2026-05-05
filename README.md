@@ -109,9 +109,7 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
 2. Drop it into your `plugins/` folder and restart.
 3. Configure settings via `plugins/Mint/config.yml`.
 
-**Requirements:** Paper 1.21.4+, Java 17+.
-
-*Upgrading from the legacy plugin?* Move your old configs to `plugins/Mint/`. Permissions and placeholders now use the `mint` prefix, e.g. `%mint_modules_total%`.
+**Requirements:** Paper 1.21.4+ Java 21+.
 
 ## Commands & Permissions
 
