@@ -142,5 +142,5 @@ mvn clean package
 ```
 ## License & Credits
 
-Licensed under [GPLv3](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii. See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.
+Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii. See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.
 `
