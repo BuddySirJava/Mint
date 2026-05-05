@@ -1,0 +1,97 @@
+gui-version: 1.0.0
+
+crafting-opener:
+  enabled: true
+  permission: mint.gui
+  update-interval-ticks: 20
+  inject-only-when-result-empty: true
+  item:
+    material: BOOK
+    glow: true
+    name: "&6Mint Modules"
+    lore:
+      - "&7Click to open your module toggles"
+
+gui:
+  title: "&8Mint Modules &7(%page%/%pages%)"
+  rows: 6
+  # If empty, all slots except pagination slots are used automatically.
+  module-slots: []
+
+  background:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+
+  module-item:
+    description:
+      enabled: true
+      max-chars-per-line: 36
+      first-line-prefix: "&7Description: &f"
+      next-line-prefix: "&f"
+
+    enabled:
+      material: LIME_DYE
+      glow: true
+      name: "&a%module%"
+      lore:
+        - "&7State: %state%"
+        - "&eClick to toggle"
+    disabled:
+      material: GRAY_DYE
+      name: "&c%module%"
+      lore:
+        - "&7State: %state%"
+        - "&eClick to toggle"
+
+  # Optional per-module icon overrides by module config key (without "modules.").
+  # Example keys: offhand-torch, mixedslab, verticalslab
+  # Example:
+  #   module-icons:
+  #     offhand-torch: SOUL_TORCH
+  #     door-knock: CRIMSON_DOOR
+  module-icons:
+    bedrock-bridging: BEDROCK
+    boat-improvements: OAK_BOAT
+    minecart-improvements: MINECART
+    fast-ladders: LADDER
+    shift-right-click-sort: CHEST
+    sprintretention: LEATHER_BOOTS
+    doubledoor: IRON_DOOR
+    blockdecoration: BRICKS
+    carpetgeometry: WHITE_CARPET
+    auto-tool: DIAMOND_PICKAXE
+    door-knock: OAK_DOOR
+    ladder-place: SCAFFOLDING
+    invisible-frame: GLOW_ITEM_FRAME
+    leash-decoration: LEAD
+    chicken-glide: FEATHER
+    painting-scroll: PAINTING
+    slab-breaker: IRON_PICKAXE
+    mixedslab: SMOOTH_STONE_SLAB
+    verticalslab: STONE_SLAB
+    auto-refill: BUNDLE
+
+  pagination:
+    previous-slot: 45
+    next-slot: 53
+    close-slot: 49
+
+    previous:
+      material: ARROW
+      name: "&ePrevious Page"
+      lore: "&7Go to page &e%page%"
+    next:
+      material: ARROW
+      name: "&eNext Page"
+      lore: "&7Go to page &e%page%"
+    close:
+      material: BARRIER
+      name: "&cClose"
+      lore:
+        - "&7Close the module menu"
+
+messages:
+  state-enabled: "&aEnabled"
+  state-disabled: "&cDisabled"
+  toggle: "&e%module% &7-> %state%"

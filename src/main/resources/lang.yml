@@ -1,0 +1,52 @@
+# MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# Dynamic tags: <mint_prefix>, <version>, <author>, <label>, <module>, <player>, <state>
+
+lang-version: 1.0.0
+
+prefix: "<gradient:#00AA55:#55FF88><bold>Mint</bold></gradient><gray> » </gray>"
+
+errors:
+  no-permission: "<mint_prefix><red>You do not have permission.</red>"
+  players-only: "<mint_prefix><red>Only players can open the module GUI.</red>"
+  no-gui-permission: "<mint_prefix><red>You cannot open the module GUI.</red>"
+  unknown-subcommand: "<mint_prefix><gray>Unknown. Try </gray><yellow>/<label> help</yellow><gray>.</gray>"
+  admin-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin <reload|modules|toggle|global|save> ...</yellow>"
+  admin-no-access: "<mint_prefix><red>You need </red><yellow>mint.admin</yellow><red> to use admin commands.</red>"
+  toggle-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin toggle <module> [player]</yellow>"
+  global-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin global <module> on|off</yellow>"
+  global-bad-state: "<mint_prefix><red>Use </red><yellow>on</yellow><red> or </red><yellow>off</yellow><red>.</red>"
+  unknown-module: "<mint_prefix><red>Unknown module: </red><yellow><module></yellow>"
+  player-not-found: "<mint_prefix><red>Player not found: </red><yellow><player></yellow>"
+  console-needs-player: "<mint_prefix><red>Console must specify a player: </red><yellow>/<label> admin toggle <module> <player></yellow>"
+
+help:
+  header: "<gradient:#00AA55:#88FFAA><bold>── Mint ──</bold></gradient>"
+  lines:
+    - "<gray>/<label></gray> <dark_gray>·</dark_gray> <white>Open the module GUI</white> <dark_gray>(</dark_gray><yellow>mint.gui</yellow><dark_gray>)</dark_gray>"
+    - "<gray>/<label> help</gray> <dark_gray>·</dark_gray> <white>Show this help</white>"
+    - "<gray>/<label> about</gray> <dark_gray>·</dark_gray> <white>Version and credits</white>"
+    - "<gray>/<label> admin …</gray> <dark_gray>·</dark_gray> <white>Server tools</white> <dark_gray>(</dark_gray><yellow>mint.admin</yellow><dark_gray> + action perms)</dark_gray>"
+    - " "
+    - "<gradient:#00AA55:#55FF88><bold>Admin</bold></gradient> <gray>(requires </gray><yellow>mint.admin</yellow><gray>)</gray>"
+    - "  <yellow>reload</yellow> <dark_gray>→</dark_gray> <white>Reload configs</white> <gray>(</gray><yellow>mint.reload</yellow><gray>)</gray>"
+    - "  <yellow>modules</yellow> <dark_gray>→</dark_gray> <white>List modules (global + you)</white>"
+    - "  <yellow>toggle</yellow> <dark_gray>→</dark_gray> <white>Per-player module toggle</white> <gray>(</gray><yellow>mint.toggle</yellow><gray>)</gray>"
+    - "  <yellow>global</yellow> <dark_gray>→</dark_gray> <white>Enable/disable module in config</white> <gray>(</gray><yellow>mint.admin.global</yellow><gray>)</gray>"
+    - "  <yellow>save</yellow> <dark_gray>→</dark_gray> <white>Save config.yml to disk</white> <gray>(</gray><yellow>mint.reload</yellow><gray>)</gray>"
+
+about:
+  lines:
+    - "<gradient:#00AA00:#55FF55><bold>Mint</bold></gradient> <gradient:#44FF88:#AAFFCC><version></gradient>"
+    - "<gradient:#228822:#66FF99><author></gradient>"
+    - "<gradient:#339933:#99FFAA><italic>A Lovingly Crafted Quality of Life Extension.</italic></gradient>"
+
+admin:
+  reload-done: "<mint_prefix><green>Configuration reloaded.</green>"
+  save-done: "<mint_prefix><green>config.yml saved.</green>"
+  global-set: "<mint_prefix><green><module></green> <gray>is now globally </gray><green><state></green><gray>.</gray>"
+  toggle-done: "<mint_prefix><green><module></green> <gray>is now </gray><green><state></green> <gray>for </gray><yellow><player></yellow><gray>.</gray>"
+  toggle-note-globally-off: "<mint_prefix><red>Note: this module is globally disabled in config.</red>"
+
+messages:
+  state-enabled: "enabled"
+  state-disabled: "disabled"

@@ -1,0 +1,404 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ir.buddy</groupId>
+    <artifactId>Mint</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Mint</name>
+    <description>A Lovingly Crafted Quality of Life Extension for Paper</description>
+    <url>https://github.com/BuddySirJava/Mint</url>
+
+    <scm>
+        <connection>scm:git:https://github.com/BuddySirJava/Mint.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/BuddySirJava/Mint.git</developerConnection>
+        <url>https://github.com/BuddySirJava/Mint</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <proguard.maven.plugin.version>2.6.0</proguard.maven.plugin.version>
+        <proguard.base.version>7.5.0</proguard.base.version>
+        <proguard.core.version>9.1.4</proguard.core.version>
+        <proguard.jmods.path>${java.home}/jmods</proguard.jmods.path>
+        <proguard.skip>true</proguard.skip>
+    </properties>
+
+    <repositories>
+       <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>enginehub-maven</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <repository>
+            <id>OnARandomBox</id>
+            <url>https://repo.onarandombox.com/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>aikar</id>
+            <url>https://repo.aikar.co/content/groups/aikar/</url>
+        </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>codemc</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+            <!-- Paper API dependency (Required for setTicking(false) and Adventure UI components) -->
+            <dependency>
+                <groupId>io.papermc.paper</groupId>
+                <artifactId>paper-api</artifactId>
+                <version>1.21.4-R0.1-SNAPSHOT</version>
+                <scope>provided</scope>
+            </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit</artifactId>
+            <version>7.0.16</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.4.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.ryanhamshire</groupId>
+            <artifactId>GriefPrevention</artifactId>
+            <version>16.16.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.20.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.20.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.3.232</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.2.1</version>
+            <scope>compile</scope>
+        </dependency>
+</dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-mint-runtime-libs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/mint-lib</outputDirectory>
+                            <includeGroupIds>org.mongodb,com.h2database,org.mariadb.jdbc,com.mysql,com.google.protobuf</includeGroupIds>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- Slim jar: only project classes; copy runtime deps from target/mint-lib/ -->
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <artifactSet>
+                                <includes>
+                                    <include>${project.groupId}:${project.artifactId}</include>
+                                    <!-- Relocated per bStats 3.x requirement (MetricsBase#checkRelocation) -->
+                                    <include>org.bstats:bstats-bukkit</include>
+                                    <include>org.bstats:bstats-base</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>ir.buddy.mint.lib.bstats</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Multi-Release>true</Multi-Release>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>${proguard.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>shrink-optimize-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <injar>${project.build.finalName}.jar</injar>
+                    <outjar>${project.build.finalName}-minified.jar</outjar>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <skip>${proguard.skip}</skip>
+                    <exclusions>
+                        <!-- The package phase shades these runtime dependencies into the input JAR.
+                             Do not also pass them to ProGuard as library JARs, otherwise ProGuard
+                             sees duplicate program/library classes and reports false inconsistencies. -->
+                        <exclusion>
+                            <groupId>org.mariadb.jdbc</groupId>
+                            <artifactId>mariadb-java-client</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.mysql</groupId>
+                            <artifactId>mysql-connector-j</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>com.google.protobuf</groupId>
+                            <artifactId>protobuf-java</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.mongodb</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                    <obfuscate>false</obfuscate>
+                    <attach>true</attach>
+                    <attachArtifactClassifier>minified</attachArtifactClassifier>
+                    <addManifest>true</addManifest>
+                    <generateTemporaryConfigurationFile>true</generateTemporaryConfigurationFile>
+                    <libs>
+                        <lib>${proguard.jmods.path}/java.base.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.compiler.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.desktop.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.instrument.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.logging.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.management.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.net.http.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.security.jgss.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.sql.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.scripting.jmod</lib>
+                        <lib>${proguard.jmods.path}/java.xml.jmod</lib>
+                        <lib>${proguard.jmods.path}/jdk.net.jmod</lib>
+                        <lib>${proguard.jmods.path}/jdk.unsupported.jmod</lib>
+                    </libs>
+                    <options>
+                        <option>-optimizationpasses 5</option>
+                        <option>-allowaccessmodification</option>
+                        <option>-mergeinterfacesaggressively</option>
+                        <option>-adaptresourcefilecontents **.yml,**.properties,META-INF/services/**</option>
+                        <option>-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod</option>
+                        <option>-keep class ir.buddy.mint.lib.bstats.** { *; }</option>
+                        <option>-keep class ir.buddy.mint.MintPlugin extends org.bukkit.plugin.java.JavaPlugin { *; }</option>
+                        <option>-keep class ir.buddy.mint.MintPlugin { public &lt;init&gt;(); }</option>
+                        <option>-keep class * extends org.bukkit.plugin.java.JavaPlugin { *; }</option>
+                        <option>-keep class * implements java.sql.Driver { *; }</option>
+                        <option>-keepclassmembers class * { @org.bukkit.event.EventHandler &lt;methods&gt;; }</option>
+                        <option>-dontwarn org.bukkit.**</option>
+                        <option>-dontwarn net.md_5.bungee.**</option>
+                        <option>-dontwarn me.clip.placeholderapi.**</option>
+                        <option>-dontwarn javax.naming.**</option>
+                        <option>-dontwarn javax.security.sasl.**</option>
+                        <option>-dontwarn javax.servlet.**</option>
+                        <option>-dontwarn javax.transaction.xa.**</option>
+                        <option>-dontwarn jakarta.servlet.**</option>
+                        <option>-dontwarn org.osgi.**</option>
+                        <option>-dontwarn io.netty.**</option>
+                        <option>-dontwarn com.mchange.**</option>
+                        <option>-dontwarn com.sun.jna.**</option>
+                        <option>-dontwarn waffle.**</option>
+                        <option>-dontwarn org.bouncycastle.**</option>
+                        <option>-dontwarn software.amazon.awssdk.**</option>
+                        <option>-dontwarn com.mongodb.**</option>
+                        <option>-dontwarn com.mongodb.crypt.capi.**</option>
+                        <option>-dontwarn com.mongodb.internal.crypt.capi.**</option>
+                        <option>-dontwarn com.mysql.cj.**</option>
+                        <option>-dontwarn org.mariadb.jdbc.**</option>
+                        <option>-dontwarn com.github.luben.zstd.**</option>
+                        <option>-dontwarn org.bson.codecs.kotlin.**</option>
+                        <option>-dontwarn org.bson.codecs.kotlinx.**</option>
+                        <option>-dontwarn org.h2.**</option>
+                        <option>-dontwarn org.locationtech.jts.**</option>
+                        <option>-dontwarn org.slf4j.**</option>
+                        <option>-dontnote</option>
+                        <option>-ignorewarnings</option>
+                    </options>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>${proguard.base.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-core</artifactId>
+                        <version>${proguard.core.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>proguard-jmods-linux17</id>
+            <activation>
+                <file>
+                    <exists>/usr/lib/jvm/java-17-openjdk/jmods/java.base.jmod</exists>
+                </file>
+            </activation>
+            <properties>
+                <proguard.jmods.path>/usr/lib/jvm/java-17-openjdk/jmods</proguard.jmods.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>proguard-jmods-env</id>
+            <activation>
+                <property>
+                    <name>env.PROGUARD_JMODS_PATH</name>
+                </property>
+            </activation>
+            <properties>
+                <proguard.jmods.path>${env.PROGUARD_JMODS_PATH}</proguard.jmods.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <proguard.skip>false</proguard.skip>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

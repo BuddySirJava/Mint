@@ -1,0 +1,84 @@
+storage:
+  download-missing-libraries: true
+  player-toggles:
+    type: yaml
+modules:
+  bedrock-bridging:
+    godbridge:
+      enabled: true
+      min-pitch: 75.0
+      max-pitch: 85.0
+      max-distance: 1.5
+    enabled: true
+    default-on-first-join: false
+    visualizer:
+      thickness: 0.008
+      material: BLACK_STAINED_GLASS
+      brightness:
+        block: 15
+        sky: 15
+    anti-choke:
+      enabled: true
+      auto-correct: true
+      min-pitch: 15.0
+      max-pitch: 70.0
+  boat-improvements:
+    enabled: true
+    default-on-first-join: true
+  minecart-improvements:
+    enabled: true
+    default-on-first-join: true
+  fast-ladders:
+    enabled: true
+    default-on-first-join: true
+  shift-right-click-sort:
+    enabled: true
+    default-on-first-join: true
+  sprintretention:
+    enabled: true
+    default-on-first-join: true
+  doubledoor:
+    enabled: true
+    default-on-first-join: true
+  blockdecoration:
+    enabled: true
+    default-on-first-join: true
+  carpetgeometry:
+    enabled: true
+    default-on-first-join: true
+    chunk-surface-limit: 64
+  auto-tool:
+    enabled: true
+    default-on-first-join: false
+  door-knock:
+    enabled: true
+    default-on-first-join: true
+  ladder-place:
+    enabled: true
+    default-on-first-join: true
+  invisible-frame:
+    enabled: true
+    default-on-first-join: true
+  leash-decoration:
+    enabled: true
+    default-on-first-join: true
+  chicken-glide:
+    enabled: true
+    default-on-first-join: true
+  painting-scroll:
+    enabled: true
+    default-on-first-join: false
+  slab-breaker:
+    enabled: true
+    default-on-first-join: true
+  mixedslab:
+    enabled: true
+    default-on-first-join: true
+  verticalslab:
+    enabled: true
+    default-on-first-join: true
+  auto-refill:
+    enabled: true
+    default-on-first-join: false
+
+config-version: 1.0.0

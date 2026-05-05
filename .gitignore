@@ -1,0 +1,41 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local / optional
+*.log
+hs_err_pid*
+replay_pid*
+tmp-h2test/
+
+# Maven copies runtime JARs to target/mint-lib/; keep unpacked libs local-only
+libs/mint-lib/
+
+# Accidental extracts / stray jars at repo root (not part of the source tree)
+/org/
+/bstats.jar
+
+# Local API copies (build uses Maven; see pom.xml)
+libs/*.jar
