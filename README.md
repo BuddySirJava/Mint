@@ -4,8 +4,7 @@
 
 # Mint
 
-🍃 **A Lovingly Crafted Quality of Life Extension** — Quark-style tweaks for Paper. 🍃
-**FOLIA SUPPORT IS EXPERIMENTAL**
+🍃 **A Lovingly Crafted Quality of Life Extension** — Quark-style tweaks for Paper and Folia (Experimental). 🍃
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-Paper%20%7C%20Folia-orange)
 ![License](https://img.shields.io/github/license/BuddySirJava/Mint?label=License&color=blue)
