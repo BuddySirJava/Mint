@@ -105,11 +105,11 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
 
 ## Installation
 
-1. Download the latest `Mint-1.0.0.jar` from [Releases](https://github.com/BuddySirJava/Mint/releases).
+1. Download the latest releases from [Releases](https://github.com/BuddySirJava/Mint/releases).
 2. Drop it into your `plugins/` folder and restart.
 3. Configure settings via `plugins/Mint/config.yml`.
 
-**Requirements:** Paper 1.21.4+ Java 21+.
+**Requirements:** Paper 1.21.4+ Java 21+. (Folia support is currently **Experimental**)
 
 ## Commands & Permissions
 
