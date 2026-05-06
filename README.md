@@ -140,4 +140,13 @@ mvn clean package
 ```
 ## License & Credits
 
-Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii. See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute.
+Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii.
+
+## Support & Contributions
+
+Mint is, and always will be, free and open-source. My goal is to solve long-standing server limitations that the community has dealt with for years. Simply using the plugin and providing feedback is the best support I could ask for! ❤️
+
+If you'd like to support development further:
+
+* **TON:** `UQCW9EFr3jexVjVvQm-njUV-oY6bVKq6e4rZbe1D4Hcmw0sX`
+* **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)
