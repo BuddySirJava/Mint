@@ -4,12 +4,12 @@ These modules add social, decorative, and utility interactions.
 
 ## Double Door
 - **Config key:** `modules.doubledoor`
-- **Description:** Opens paired double doors together.
+- **Description:** Open paired double doors together.
 - **Permission node:** `mint.module.doubledoor` (default; override with `modules.doubledoor.permission`)
 
 ## Door Knock
 - **Config key:** `modules.door-knock`
-- **Description:** Left-clicks doors to play a knock sound.
+- **Description:** Left-click doors to play a knock sound.
 - **Permission node:** `mint.module.door-knock` (default; override with `modules.door-knock.permission`)
 
 ## Invisible Frame
@@ -19,10 +19,10 @@ These modules add social, decorative, and utility interactions.
 
 ## Painting Scroll
 - **Config key:** `modules.painting-scroll`
-- **Description:** Scrolls paintings to cycle fitting variants.
+- **Description:** Scroll paintings to cycle fitting variants.
 - **Permission node:** `mint.module.painting-scroll` (default; override with `modules.painting-scroll.permission`)
 
 ## Leash Decoration
 - **Config key:** `modules.leash-decoration`
-- **Description:** Links fences with leads and lets players swing from them.
+- **Description:** Link fences with leads and lets players swing from them.
 - **Permission node:** `mint.module.leash-decoration` (default; override with `modules.leash-decoration.permission`)

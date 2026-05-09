@@ -4,7 +4,7 @@ These modules improve crop handling, growth, and world interaction utilities.
 
 ## Crop Interact
 - **Config key:** `modules.crop-interact`
-- **Description:** Right-clicks mature crops to harvest and automatically replant.
+- **Description:** Right-click mature crops to harvest and automatically replant.
 - **Permission node:** `mint.module.crop-interact` (default; override with `modules.crop-interact.permission`)
 
 ## Bone Meal Anything

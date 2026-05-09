@@ -11,7 +11,7 @@ These modules modify mob and creature-specific behavior.
 
 ## Feather Pluck
 - **Config key:** `modules.feather-pluck`
-- **Description:** Plucks feathers from chickens with shears using cooldown and feedback cues.
+- **Description:** Pluck feathers from chickens with shears.
 - **Permission node:** `mint.module.feather-pluck` (default; override with `modules.feather-pluck.permission`)
 
 ## Vexes Die With Their Masters

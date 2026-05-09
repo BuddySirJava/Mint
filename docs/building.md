@@ -29,35 +29,35 @@ These modules focus on placement, decoration, and building convenience.
 
 ## Carpet Geometry
 - **Config key:** `modules.carpetgeometry`
-- **Description:** Uses a stonecutter to craft geometric patterns into carpets.
+- **Description:** Use a stonecutter to craft geometric patterns into carpets.
 - **Permission node:** `mint.module.carpetgeometry` (default; override with `modules.carpetgeometry.permission`)
 
 ![Carpet Geometry Preview](media/modules/carpet-geometry.gif)
 
 ## Ladder Place
 - **Config key:** `modules.ladder-place`
-- **Description:** Places ladders quickly above or below your current position.
+- **Description:** Place ladders quickly above or below your current position.
 - **Permission node:** `mint.module.ladder-place` (default; override with `modules.ladder-place.permission`)
 
 ![Ladder Place Preview](media/modules/fast-ladder.gif)
 
 ## Sign Items
 - **Config key:** `modules.sign-items`
-- **Description:** Places items on hanging signs using display entities.
+- **Description:** Place items on hanging signs.
 - **Permission node:** `mint.module.sign-items` (default; override with `modules.sign-items.permission`)
 
 ![Sign Items Preview](media/modules/signitems.png)
 
 ## Slab Breaker
 - **Config key:** `modules.slab-breaker`
-- **Description:** Breaks only one half of double slabs.
+- **Description:** Break only one half of double slabs.
 - **Permission node:** `mint.module.slab-breaker` (default; override with `modules.slab-breaker.permission`)
 
 ![Slab Breaker Preview](media/modules/slab-breaker.gif)
 
 ## Mixed Slab
 - **Config key:** `modules.mixedslab`
-- **Description:** Places two different slab types in one block space.
+- **Description:** Place two different slab types in one block space.
 - **Permission node:** `mint.module.mixedslab` (default; override with `modules.mixedslab.permission`)
 
 ![Mixed Slab Preview](media/modules/mixed-slab.gif)
