@@ -26,7 +26,6 @@
 - [Commands and permissions](#commands-and-permissions)
 - [Technical details](#technical-details)
 - [Building from source](#building-from-source)
-- [License and credits](#license-and-credits)
 - [Support and contributions](#support-and-contributions)
 
 ## Features
@@ -77,8 +76,6 @@ Modules are documented by category (config keys, permissions, and previews where
 - **Customization:** GUI and messages via `gui.yml` and `lang.yml` (MiniMessage).
 - **PlaceholderAPI:** `%mint_modules_total%` (personal module count), `%mint_modules_server_total%`, `%mint_modules_enabled_count%` (enabled for the player). `%mint_module_<key>%` reflects per-player state for personal modules and config for server-wide modules; `%mint_global_<key>%` always reflects config.
 - **Tests:** `mvn test` runs the suite (includes Folia compatibility checks).
-
-**Config migration:** Reacharound Placement still reads the legacy `modules.bedrock-bridging.enabled` key when `modules.reacharound-placement.enabled` is omitted, so older configs keep working.
 
 ## Building from source
 
