@@ -12,6 +12,7 @@
 </div>
 
 Mint ships **29** lightweight, vanilla-friendly gameplay modules. Each one can be toggled per-player, integrates with common protection plugins, supports multiple storage backends, and requires no client mods.
+We are talking Diamond Doors, Vertical Slabs, Mixed slabs and Colored ItemFrames. Make sure you checkout [Building Modules](docs/building.md)!
 
 ## Features
 
@@ -32,10 +33,9 @@ Mint ships 29 lightweight modules grouped by category:
 2. Drop it into your `plugins/` folder and restart.
 3. Configure settings via `plugins/Mint/config.yml`.
 
-**Requirements:** Paper 1.21.4+ Java 21+. (Folia support is currently **Experimental**)
+**Requirements:** Paper/Folia 1.21.4+ Java 21+.
 
-**Optional integrations:** PlaceholderAPI, WorldGuard, GriefPrevention, Towny, and BentoBox (soft-dependencies).
-
+**Soft Dependencies** PlaceholderAPI, WorldGuard, GriefPrevention, Towny, ProtocolLib and BentoBox
 ## Commands & Permissions
 
 | Command | Description | Permission |
@@ -73,7 +73,7 @@ mvn clean package
 ```
 ## License & Credits
 
-Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii.
+Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii and [V-Tweaks](https://mods.oitsjustjose.com/V-Tweaks/) by oitsjustjose.
 
 ## Support & Contributions
 

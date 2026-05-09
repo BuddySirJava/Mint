@@ -213,11 +213,7 @@ public final class DyeableItemFramesModule implements Module, Listener {
         Vector facing = frame.getFacing().getDirection();
         Location displayLocation = location.clone().add(facing.clone().multiply(DISPLAY_OFFSET));
         displayLocation.setDirection(facing);
-        if (!plugin.getDisplayEntityController().canSpawn(displayLocation, getConfigPath())) {
-            return null;
-        }
-
-        ItemDisplay display = frame.getWorld().spawn(displayLocation, ItemDisplay.class, d -> {
+        ItemDisplay display = plugin.getDisplayBackendManager().backend().spawnItemDisplay(displayLocation, getConfigPath(), d -> {
             d.setPersistent(false);
             d.setInvulnerable(true);
             d.setGravity(false);
@@ -232,8 +228,10 @@ public final class DyeableItemFramesModule implements Module, Listener {
             PersistentDataContainer displayPdc = d.getPersistentDataContainer();
             displayPdc.set(displayMarkerKey, PersistentDataType.BYTE, (byte) 1);
             displayPdc.set(displayFrameUuidKey, PersistentDataType.STRING, frame.getUniqueId().toString());
-            plugin.getDisplayEntityController().markManaged(d, getConfigPath());
         });
+        if (display == null) {
+            return null;
+        }
 
         frame.getPersistentDataContainer().set(frameDisplayUuidKey, PersistentDataType.STRING, display.getUniqueId().toString());
         return display;

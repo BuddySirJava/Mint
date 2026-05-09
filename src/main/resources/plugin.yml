@@ -5,7 +5,7 @@ api-version: '1.21'
 folia-supported: true
 author: BuddySirJava
 website: https://ir.buddy
-softdepend: [PlaceholderAPI, WorldGuard, GriefPrevention, Towny, BentoBox]
+softdepend: [PlaceholderAPI, WorldGuard, GriefPrevention, Towny, BentoBox, ProtocolLib]
 commands:
   mint:
     description: Main Mint command

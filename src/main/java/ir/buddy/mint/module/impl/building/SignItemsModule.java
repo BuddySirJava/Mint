@@ -139,11 +139,7 @@ public final class SignItemsModule implements Module, Listener {
         if (loc == null) {
             return false;
         }
-        if (!plugin.getDisplayEntityController().canSpawn(loc, getConfigPath())) {
-            return false;
-        }
-
-        ItemDisplay display = block.getWorld().spawn(loc, ItemDisplay.class, d -> {
+        ItemDisplay display = plugin.getDisplayBackendManager().backend().spawnItemDisplay(loc, getConfigPath(), d -> {
             d.setPersistent(true);
             d.setInvulnerable(true);
             d.setGravity(false);
@@ -158,8 +154,10 @@ public final class SignItemsModule implements Module, Listener {
             ));
             
             d.getPersistentDataContainer().set(itemMarkerKey, PersistentDataType.BYTE, (byte) 1);
-            plugin.getDisplayEntityController().markManaged(d, getConfigPath());
         });
+        if (display == null) {
+            return false;
+        }
 
         pdc.set(displayUuidKey, PersistentDataType.STRING, display.getUniqueId().toString());
         tileState.update();

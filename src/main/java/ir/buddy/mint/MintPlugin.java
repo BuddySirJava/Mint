@@ -3,6 +3,7 @@ package ir.buddy.mint;
 import ir.buddy.mint.command.MintCommand;
 import ir.buddy.mint.config.PluginConfigValidator;
 import ir.buddy.mint.gui.ModuleToggleGui;
+import ir.buddy.mint.util.DisplayBackendManager;
 import ir.buddy.mint.util.DisplayEntityController;
 import ir.buddy.mint.util.MintJdbcLibraryLoader;
 import ir.buddy.mint.util.MintLang;
@@ -37,6 +38,7 @@ public final class MintPlugin extends JavaPlugin {
     private FileConfiguration langConfig;
     private MintLang mintLang;
     private DisplayEntityController displayEntityController;
+    private DisplayBackendManager displayBackendManager;
     private URLClassLoader runtimeLibrariesClassLoader;
     private final Object runtimeLibrariesLock = new Object();
     private volatile boolean bstatsHooked;
@@ -61,6 +63,8 @@ public final class MintPlugin extends JavaPlugin {
         this.protectionSupport = new ProtectionSupport();
         this.displayEntityController = new DisplayEntityController(this);
         this.displayEntityController.register();
+        this.displayBackendManager = new DisplayBackendManager(this);
+        this.displayBackendManager.initializeOrReload();
         this.moduleManager = new ModuleManager(this);
         this.moduleManager.registerModules();
         PluginConfigValidator.validateAndLog(this, moduleManager);
@@ -118,6 +122,7 @@ public final class MintPlugin extends JavaPlugin {
             playerModulePreferences.close();
             playerModulePreferences = null;
         }
+        displayBackendManager = null;
         displayEntityController = null;
         resetRuntimeLibrariesClassLoader();
         getLogger().info("Mint disabled.");
@@ -146,6 +151,10 @@ public final class MintPlugin extends JavaPlugin {
             } else {
                 displayEntityController.reload();
             }
+            if (displayBackendManager == null) {
+                displayBackendManager = new DisplayBackendManager(this);
+            }
+            displayBackendManager.initializeOrReload();
             playerModulePreferences.preloadToggles(Bukkit.getOnlinePlayers(), moduleManager.getModules());
             PluginConfigValidator.validateAndLog(this, moduleManager);
             moduleManager.refreshActiveModules();
@@ -216,6 +225,10 @@ public final class MintPlugin extends JavaPlugin {
 
     public DisplayEntityController getDisplayEntityController() {
         return displayEntityController;
+    }
+
+    public DisplayBackendManager getDisplayBackendManager() {
+        return displayBackendManager;
     }
 
     

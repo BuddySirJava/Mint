@@ -1,7 +1,14 @@
 storage:
+  # Available types: h2, mariadb, mysql, mongo, yaml
   download-missing-libraries: true
   player-toggles:
     type: yaml
+    # settings:
+    #   url: jdbc:h2:file:./plugins/Mint/player-toggles;AUTO_SERVER=TRUE
+    #   username: sa
+    #   password: ""
+    #   database: mint
+    #   collection: player_module_toggles
 
 # Save reusable per-player toggle sets with:
 # /mint admin profile save <name> [player]
@@ -20,6 +27,16 @@ display-entity-control:
   prune-on-chunk-load: true
   # Log when pruning occurs due to caps.
   log-prunes: true
+
+display-backend:
+  # auto: use ProtocolLib backend when available, otherwise bukkit fallback.
+  # bukkit: always use normal Bukkit display entities.
+  # protocollib: force ProtocolLib backend, but fallback to bukkit if unavailable.
+  mode: auto
+  allow-protocollib: true
+  log-selection: true
+  # ProtocolLib support on Folia is currently experimental.
+  folia-protocollib-experimental: true
 
 modules:
   reacharound-placement:
@@ -140,7 +157,7 @@ modules:
     cooldown-seconds: 300
     feather-drop-min: 1
     feather-drop-max: 3
-  # Applies to everyone when enabled (no per-player toggle or mint.module permission).
+  # Applies to everyone when enabled:
   vexes-die-with-their-masters:
     enabled: true
 

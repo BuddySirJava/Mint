@@ -223,6 +223,7 @@ public final class DisplayEntityController implements Listener {
         for (NamespacedKey key : pdc.getKeys()) {
             String value = key.getKey();
             if ("decoration".equals(value)
+                    || "carpet_geom".equals(value)
                     || "sign_item_marker".equals(value)
                     || "dyeable_item_frame_display".equals(value)) {
                 return true;
@@ -232,7 +233,11 @@ public final class DisplayEntityController implements Listener {
     }
 
     private boolean isEnabled() {
-        return plugin.getConfig().getBoolean(CFG_BASE + ".enabled", true);
+        if (!plugin.getConfig().getBoolean(CFG_BASE + ".enabled", true)) {
+            return false;
+        }
+        DisplayBackendManager manager = plugin.getDisplayBackendManager();
+        return manager == null || !manager.usingProtocolLibBackend();
     }
 
     private int perChunkHardCap() {

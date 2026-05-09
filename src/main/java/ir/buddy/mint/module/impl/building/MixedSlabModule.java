@@ -310,10 +310,16 @@ public class MixedSlabModule implements Module, Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (!ModuleAccess.isEnabledForPlayer(plugin, this, player)) return;
+        boolean moduleEnabledForPlayer = ModuleAccess.isEnabledForPlayer(plugin, this, player);
         MiningContext ctx = activeMining.remove(player.getUniqueId());
 
         Block block = event.getBlock();
+        if (!moduleEnabledForPlayer) {
+            if (block.getType() == Material.BARRIER && isMixedSlabAt(block)) {
+                cleanupMixedSlab(block, false);
+            }
+            return;
+        }
         if (!ModuleAccess.canBuild(plugin, player, block.getLocation())) return;
 
 

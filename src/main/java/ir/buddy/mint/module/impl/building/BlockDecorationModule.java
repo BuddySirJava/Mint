@@ -672,11 +672,8 @@ public class BlockDecorationModule implements Module, Listener {
             float pad,
             @Nullable String decorationPart) {
         Location spawnLoc = block.getLocation();
-        if (!plugin.getDisplayEntityController().canSpawn(spawnLoc, getConfigPath())) {
-            return;
-        }
         Display.Brightness brightness = sampleBrightness(block);
-        block.getWorld().spawn(spawnLoc, BlockDisplay.class, display -> {
+        plugin.getDisplayBackendManager().backend().spawnBlockDisplay(spawnLoc, getConfigPath(), display -> {
             display.setBlock(material.createBlockData());
             display.setTransformation(new Transformation(
                     new Vector3f(tx - pad, ty - pad, tz - pad),
@@ -691,7 +688,6 @@ public class BlockDecorationModule implements Module, Listener {
             if (decorationPart != null) {
                 pdc.set(decorationPartKey, PersistentDataType.STRING, decorationPart);
             }
-            plugin.getDisplayEntityController().markManaged(display, getConfigPath());
             display.setPersistent(true);
             display.setGravity(false);
         });

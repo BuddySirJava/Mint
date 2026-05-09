@@ -378,7 +378,7 @@ public class CarpetGeometryModule implements Module, Listener {
         float transformedSz = sz * frame.xzScale();
         float transformedTy = frame.yTop() + (ty - DEFAULT_PATTERN_TOP);
 
-        block.getWorld().spawn(spawnLoc, BlockDisplay.class, display -> {
+        plugin.getDisplayBackendManager().backend().spawnBlockDisplay(spawnLoc, getConfigPath(), display -> {
             display.setBlock(material.createBlockData());
             display.setTransformation(new Transformation(
                     new Vector3f(transformedTx - HALF_PAD, transformedTy - HALF_PAD, transformedTz - HALF_PAD),
@@ -876,12 +876,11 @@ public class CarpetGeometryModule implements Module, Listener {
    public void onBlockBreak(BlockBreakEvent event) {
        if (!plugin.isEnabled()) return;
 
-       if (!ModuleAccess.isEnabledForPlayer(plugin, this, event.getPlayer())) {
-           return;
-       }
-
-       boolean shouldDrop = event.isDropItems() && event.getPlayer().getGameMode() != GameMode.CREATIVE;
-        if (handlePatternBreak(event.getBlock(), shouldDrop)) {
+       boolean moduleEnabledForPlayer = ModuleAccess.isEnabledForPlayer(plugin, this, event.getPlayer());
+       boolean shouldDropCustomItem = moduleEnabledForPlayer
+               && event.isDropItems()
+               && event.getPlayer().getGameMode() != GameMode.CREATIVE;
+        if (handlePatternBreak(event.getBlock(), shouldDropCustomItem) && shouldDropCustomItem) {
             event.setDropItems(false);
         }
     }

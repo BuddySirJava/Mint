@@ -551,11 +551,23 @@ public final class ReacharoundPlacementModule implements Module, Listener {
 
         private void remove() {
             for (BlockDisplay edge : edges) {
-                if (edge != null && !edge.isDead()) {
-                    edge.remove();
-                }
+                safeRemoveEdge(edge);
             }
             currentTarget = null;
+        }
+
+        private void safeRemoveEdge(BlockDisplay edge) {
+            if (edge == null || edge.isDead()) {
+                return;
+            }
+            try {
+                FoliaScheduler.runEntity(plugin, edge, edge::remove);
+            } catch (Throwable ignored) {
+                try {
+                    edge.remove();
+                } catch (Throwable ignoredAgain) {
+                }
+            }
         }
 
         private void hide() {
