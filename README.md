@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="media/banner.png" alt="Mint Banner" width="800" />
+<img src="docs/media/banner.png" alt="Mint Banner" width="800" />
 
 # Mint
 

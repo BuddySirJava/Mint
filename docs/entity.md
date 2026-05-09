@@ -6,9 +6,9 @@ These modules modify mob and creature-specific behavior.
 - **Config key:** `modules.chicken-glide`
 - **Description:** Lets players carry chickens and glide with slow falling.
 - **Permission node:** `mint.module.chicken-glide` (default; override with `modules.chicken-glide.permission`)
-- **Preview:** `../media/modules/chicken-pickup.gif`
+- **Preview:** `media/modules/chicken-pickup.gif`
 
-![Chicken Glide Preview](../media/modules/chicken-pickup.gif)
+![Chicken Glide Preview](media/modules/chicken-pickup.gif)
 
 ## Feather Pluck
 - **Config key:** `modules.feather-pluck`
