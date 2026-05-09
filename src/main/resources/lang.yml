@@ -1,7 +1,7 @@
 # MiniMessage: https://docs.advntr.dev/minimessage/format.html
 # Dynamic tags: <mint_prefix>, <version>, <author>, <label>, <module>, <player>, <state>
 
-lang-version: 1.0.0
+lang-version: ${project.version}
 
 prefix: "<gradient:#00AA55:#55FF88><bold>Mint</bold></gradient><gray> » </gray>"
 
@@ -10,14 +10,18 @@ errors:
   players-only: "<mint_prefix><red>Only players can open the module GUI.</red>"
   no-gui-permission: "<mint_prefix><red>You cannot open the module GUI.</red>"
   unknown-subcommand: "<mint_prefix><gray>Unknown. Try </gray><yellow>/<label> help</yellow><gray>.</gray>"
-  admin-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin <reload|modules|toggle|global|save> ...</yellow>"
+  admin-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin <reload|modules|toggle|global|profile|save> ...</yellow>"
   admin-no-access: "<mint_prefix><red>You need </red><yellow>mint.admin</yellow><red> to use admin commands.</red>"
   toggle-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin toggle <module> [player]</yellow>"
   global-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin global <module> on|off</yellow>"
+  profile-usage: "<mint_prefix><gray>Usage: </gray><yellow>/<label> admin profile <list|save|load|delete> [name] [player]</yellow>"
+  profile-bad-name: "<mint_prefix><red>Profile name cannot be empty.</red>"
+  profile-not-found: "<mint_prefix><red>Profile not found: </red><yellow><profile></yellow>"
   global-bad-state: "<mint_prefix><red>Use </red><yellow>on</yellow><red> or </red><yellow>off</yellow><red>.</red>"
   unknown-module: "<mint_prefix><red>Unknown module: </red><yellow><module></yellow>"
+  server-module-no-toggle: "<mint_prefix><yellow><module></yellow><red> is a server-wide module.</red> <gray>Use </gray><yellow>/<label> admin global …</yellow><gray>.</gray>"
   player-not-found: "<mint_prefix><red>Player not found: </red><yellow><player></yellow>"
-  console-needs-player: "<mint_prefix><red>Console must specify a player: </red><yellow>/<label> admin toggle <module> <player></yellow>"
+  console-needs-player: "<mint_prefix><red>Console must specify a player.</red>"
 
 help:
   header: "<gradient:#00AA55:#88FFAA><bold>── Mint ──</bold></gradient>"
@@ -29,9 +33,10 @@ help:
     - " "
     - "<gradient:#00AA55:#55FF88><bold>Admin</bold></gradient> <gray>(requires </gray><yellow>mint.admin</yellow><gray>)</gray>"
     - "  <yellow>reload</yellow> <dark_gray>→</dark_gray> <white>Reload configs</white> <gray>(</gray><yellow>mint.reload</yellow><gray>)</gray>"
-    - "  <yellow>modules</yellow> <dark_gray>→</dark_gray> <white>List modules (global + you)</white>"
+    - "  <yellow>modules</yellow> <dark_gray>→</dark_gray> <white>List server-wide vs player modules</white>"
     - "  <yellow>toggle</yellow> <dark_gray>→</dark_gray> <white>Per-player module toggle</white> <gray>(</gray><yellow>mint.toggle</yellow><gray>)</gray>"
     - "  <yellow>global</yellow> <dark_gray>→</dark_gray> <white>Enable/disable module in config</white> <gray>(</gray><yellow>mint.admin.global</yellow><gray>)</gray>"
+    - "  <yellow>profile</yellow> <dark_gray>→</dark_gray> <white>Save/load/delete module presets</white> <gray>(</gray><yellow>mint.admin.profile</yellow><gray>)</gray>"
     - "  <yellow>save</yellow> <dark_gray>→</dark_gray> <white>Save config.yml to disk</white> <gray>(</gray><yellow>mint.reload</yellow><gray>)</gray>"
 
 about:
@@ -46,6 +51,11 @@ admin:
   global-set: "<mint_prefix><green><module></green> <gray>is now globally </gray><green><state></green><gray>.</gray>"
   toggle-done: "<mint_prefix><green><module></green> <gray>is now </gray><green><state></green> <gray>for </gray><yellow><player></yellow><gray>.</gray>"
   toggle-note-globally-off: "<mint_prefix><red>Note: this module is globally disabled in config.</red>"
+  profile-list-empty: "<mint_prefix><gray>No profiles are saved yet.</gray>"
+  profile-list: "<mint_prefix><gray>Profiles: </gray><yellow><profiles></yellow>"
+  profile-saved: "<mint_prefix><green>Saved profile </green><yellow><profile></yellow><green> from </green><yellow><player></yellow><green>.</green>"
+  profile-loaded: "<mint_prefix><green>Loaded profile </green><yellow><profile></yellow><green> for </green><yellow><player></yellow><green>.</green>"
+  profile-deleted: "<mint_prefix><green>Deleted profile </green><yellow><profile></yellow><green>.</green>"
 
 messages:
   state-enabled: "enabled"

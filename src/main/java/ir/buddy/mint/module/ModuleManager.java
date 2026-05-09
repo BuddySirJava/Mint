@@ -1,26 +1,35 @@
 package ir.buddy.mint.module;
 
 import ir.buddy.mint.MintPlugin;
-import ir.buddy.mint.module.impl.AutoRefillModule;
-import ir.buddy.mint.module.impl.AutoToolModule;
-import ir.buddy.mint.module.impl.BedrockBridgingModule;
-import ir.buddy.mint.module.impl.BlockDecorationModule;
-import ir.buddy.mint.module.impl.BoatImprovementsModule;
-import ir.buddy.mint.module.impl.CarpetGeometryModule;
-import ir.buddy.mint.module.impl.ChickenGlideModule;
-import ir.buddy.mint.module.impl.DoorKnockModule;
-import ir.buddy.mint.module.impl.DoubleDoorModule;
-import ir.buddy.mint.module.impl.FastLadderModule;
-import ir.buddy.mint.module.impl.InvisibleFrameModule;
-import ir.buddy.mint.module.impl.LadderPlaceModule;
-import ir.buddy.mint.module.impl.LeashDecorationModule;
-import ir.buddy.mint.module.impl.MinecartImprovementsModule;
-import ir.buddy.mint.module.impl.MixedSlabModule;
-import ir.buddy.mint.module.impl.PaintingScrollModule;
-import ir.buddy.mint.module.impl.ShiftRightClickSortModule;
-import ir.buddy.mint.module.impl.SlabBreakerModule;
-import ir.buddy.mint.module.impl.SprintRetentionModule;
-import ir.buddy.mint.module.impl.VerticalSlabModule;
+import ir.buddy.mint.module.impl.building.BlockDecorationModule;
+import ir.buddy.mint.module.impl.building.CarpetGeometryModule;
+import ir.buddy.mint.module.impl.building.DyeableItemFramesModule;
+import ir.buddy.mint.module.impl.building.LadderPlaceModule;
+import ir.buddy.mint.module.impl.building.MixedSlabModule;
+import ir.buddy.mint.module.impl.building.ReacharoundPlacementModule;
+import ir.buddy.mint.module.impl.building.SignItemsModule;
+import ir.buddy.mint.module.impl.building.SlabBreakerModule;
+import ir.buddy.mint.module.impl.building.VerticalSlabModule;
+import ir.buddy.mint.module.impl.entity.ChickenGlideModule;
+import ir.buddy.mint.module.impl.entity.FeatherPluckModule;
+import ir.buddy.mint.module.impl.entity.VexesDieWithTheirMastersModule;
+import ir.buddy.mint.module.impl.farming.BoneMealAnythingModule;
+import ir.buddy.mint.module.impl.farming.ChopdownModule;
+import ir.buddy.mint.module.impl.farming.CropInteractModule;
+import ir.buddy.mint.module.impl.farming.TorchLightingModule;
+import ir.buddy.mint.module.impl.interaction.DoorKnockModule;
+import ir.buddy.mint.module.impl.interaction.DoubleDoorModule;
+import ir.buddy.mint.module.impl.interaction.InvisibleFrameModule;
+import ir.buddy.mint.module.impl.interaction.LeashDecorationModule;
+import ir.buddy.mint.module.impl.interaction.PaintingScrollModule;
+import ir.buddy.mint.module.impl.inventory.AutoRefillModule;
+import ir.buddy.mint.module.impl.inventory.AutoToolModule;
+import ir.buddy.mint.module.impl.inventory.ExpandedItemInteractionsModule;
+import ir.buddy.mint.module.impl.inventory.ShiftRightClickSortModule;
+import ir.buddy.mint.module.impl.mobility.FastLadderModule;
+import ir.buddy.mint.module.impl.mobility.SprintRetentionModule;
+import ir.buddy.mint.module.impl.transport.BoatImprovementsModule;
+import ir.buddy.mint.module.impl.transport.MinecartImprovementsModule;
 import ir.buddy.mint.util.FoliaScheduler;
 import ir.buddy.mint.util.ScheduledTaskHandle;
 
@@ -35,6 +44,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -51,6 +61,7 @@ public class ModuleManager {
    private boolean isInitialLoad = true;
 
    private record PendingEnable(Module module, long token) {}
+   private record ModuleDefinition(String key, Function<MintPlugin, Module> factory) {}
 
     public ModuleManager(MintPlugin plugin) {
         this.plugin = plugin;
@@ -58,29 +69,52 @@ public class ModuleManager {
 
     public void registerModules() {
        modules.clear();
-
-
-       modules.add(new BedrockBridgingModule(plugin));
-       modules.add(new BoatImprovementsModule(plugin));
-       modules.add(new MinecartImprovementsModule(plugin));
-       modules.add(new FastLadderModule(plugin));
-       modules.add(new ShiftRightClickSortModule(plugin));
-       modules.add(new SprintRetentionModule(plugin));
-       modules.add(new DoubleDoorModule(plugin));
-       modules.add(new BlockDecorationModule(plugin));
-       modules.add(new CarpetGeometryModule(plugin));
-       modules.add(new AutoToolModule(plugin));
-       modules.add(new DoorKnockModule(plugin));
-       modules.add(new LadderPlaceModule(plugin));
-       modules.add(new InvisibleFrameModule(plugin));
-       modules.add(new LeashDecorationModule(plugin));
-       modules.add(new ChickenGlideModule(plugin));
-       modules.add(new PaintingScrollModule(plugin));
-       modules.add(new SlabBreakerModule(plugin));
-       modules.add(new MixedSlabModule(plugin));
-       modules.add(new VerticalSlabModule(plugin));
-       modules.add(new AutoRefillModule(plugin));
+       for (ModuleDefinition definition : moduleDefinitions()) {
+           Module module = definition.factory().apply(plugin);
+           String expectedPath = "modules." + definition.key();
+           if (!expectedPath.equals(module.getConfigPath())) {
+               plugin.getLogger().warning(
+                       "Module config path mismatch for " + module.getName() + ": expected " + expectedPath + " but got "
+                               + module.getConfigPath()
+               );
+           }
+           modules.add(module);
+       }
    }
+
+    private List<ModuleDefinition> moduleDefinitions() {
+        return List.of(
+                new ModuleDefinition("reacharound-placement", ReacharoundPlacementModule::new),
+                new ModuleDefinition("boat-improvements", BoatImprovementsModule::new),
+                new ModuleDefinition("minecart-improvements", MinecartImprovementsModule::new),
+                new ModuleDefinition("fast-ladders", FastLadderModule::new),
+                new ModuleDefinition("shift-right-click-sort", ShiftRightClickSortModule::new),
+                new ModuleDefinition("sprintretention", SprintRetentionModule::new),
+                new ModuleDefinition("doubledoor", DoubleDoorModule::new),
+                new ModuleDefinition("blockdecoration", BlockDecorationModule::new),
+                new ModuleDefinition("carpetgeometry", CarpetGeometryModule::new),
+                new ModuleDefinition("auto-tool", AutoToolModule::new),
+                new ModuleDefinition("door-knock", DoorKnockModule::new),
+                new ModuleDefinition("sign-items", SignItemsModule::new),
+                new ModuleDefinition("ladder-place", LadderPlaceModule::new),
+                new ModuleDefinition("invisible-frame", InvisibleFrameModule::new),
+                new ModuleDefinition("leash-decoration", LeashDecorationModule::new),
+                new ModuleDefinition("chicken-glide", ChickenGlideModule::new),
+                new ModuleDefinition("painting-scroll", PaintingScrollModule::new),
+                new ModuleDefinition("slab-breaker", SlabBreakerModule::new),
+                new ModuleDefinition("mixedslab", MixedSlabModule::new),
+                new ModuleDefinition("verticalslab", VerticalSlabModule::new),
+                new ModuleDefinition("auto-refill", AutoRefillModule::new),
+                new ModuleDefinition("expanded-item-interactions", ExpandedItemInteractionsModule::new),
+                new ModuleDefinition("dyeable-item-frames", DyeableItemFramesModule::new),
+                new ModuleDefinition("bone-meal-anything", BoneMealAnythingModule::new),
+                new ModuleDefinition("crop-interact", CropInteractModule::new),
+                new ModuleDefinition("chopdown", ChopdownModule::new),
+                new ModuleDefinition("torch-lighting", TorchLightingModule::new),
+                new ModuleDefinition("feather-pluck", FeatherPluckModule::new),
+                new ModuleDefinition("vexes-die-with-their-masters", VexesDieWithTheirMastersModule::new)
+        );
+    }
 
    public void registerRecipes() {
        for (Module module : modules) {
@@ -116,11 +150,11 @@ public class ModuleManager {
        activeModules.clear();
     }
 
-    /**
-     * Reconciles which modules have listeners/register global hooks versus {@code enabled} in config.
-     * Per-player on/off lives in {@link ir.buddy.mint.player.PlayerModulePreferences}; it does not
-     * unload modules from the whole server here.
-     */
+    
+
+
+
+
     public void refreshActiveModules() {
         for (Module module : modules) {
             refreshModuleActivity(module);
@@ -355,6 +389,14 @@ public class ModuleManager {
 
     public List<Module> getModules() {
         return Collections.unmodifiableList(modules);
+    }
+
+    public List<Module> getPlayerScopedModules() {
+        return modules.stream().filter(module -> !module.isServerScoped()).toList();
+    }
+
+    public List<Module> getServerScopedModules() {
+        return modules.stream().filter(Module::isServerScoped).toList();
     }
 
     public Optional<Module> getModule(String name) {

@@ -3,6 +3,7 @@ package ir.buddy.mint;
 import ir.buddy.mint.command.MintCommand;
 import ir.buddy.mint.config.PluginConfigValidator;
 import ir.buddy.mint.gui.ModuleToggleGui;
+import ir.buddy.mint.util.DisplayEntityController;
 import ir.buddy.mint.util.MintJdbcLibraryLoader;
 import ir.buddy.mint.util.MintLang;
 import ir.buddy.mint.util.MintMetricsBootstrap;
@@ -10,7 +11,7 @@ import ir.buddy.mint.util.MintRuntimeLibraries;
 import ir.buddy.mint.integration.MintPlaceholders;
 import ir.buddy.mint.integration.ProtectionSupport;
 import ir.buddy.mint.module.ModuleManager;
-import ir.buddy.mint.module.impl.CarpetGeometryModule;
+import ir.buddy.mint.module.impl.building.CarpetGeometryModule;
 import ir.buddy.mint.player.PlayerModuleActivityListener;
 import ir.buddy.mint.player.PlayerModulePreferences;
 import org.bukkit.Bukkit;
@@ -35,6 +36,7 @@ public final class MintPlugin extends JavaPlugin {
     private FileConfiguration guiConfig;
     private FileConfiguration langConfig;
     private MintLang mintLang;
+    private DisplayEntityController displayEntityController;
     private URLClassLoader runtimeLibrariesClassLoader;
     private final Object runtimeLibrariesLock = new Object();
     private volatile boolean bstatsHooked;
@@ -48,15 +50,17 @@ public final class MintPlugin extends JavaPlugin {
        MintRuntimeLibraries.prepare(this, this::completeMintStartup);
     }
 
-    /**
-     * Runs on the server thread after {@code plugins/Mint/lib/} is satisfied (or downloads finished).
-     */
+    
+
+
     private void completeMintStartup() {
         resetRuntimeLibrariesClassLoader();
         hookBstatsIfPossible();
 
         this.playerModulePreferences = new PlayerModulePreferences(this);
         this.protectionSupport = new ProtectionSupport();
+        this.displayEntityController = new DisplayEntityController(this);
+        this.displayEntityController.register();
         this.moduleManager = new ModuleManager(this);
         this.moduleManager.registerModules();
         PluginConfigValidator.validateAndLog(this, moduleManager);
@@ -114,6 +118,7 @@ public final class MintPlugin extends JavaPlugin {
             playerModulePreferences.close();
             playerModulePreferences = null;
         }
+        displayEntityController = null;
         resetRuntimeLibrariesClassLoader();
         getLogger().info("Mint disabled.");
     }
@@ -134,6 +139,12 @@ public final class MintPlugin extends JavaPlugin {
                 playerModulePreferences.reload();
             } else {
                 playerModulePreferences = new PlayerModulePreferences(this);
+            }
+            if (displayEntityController == null) {
+                displayEntityController = new DisplayEntityController(this);
+                displayEntityController.register();
+            } else {
+                displayEntityController.reload();
             }
             playerModulePreferences.preloadToggles(Bukkit.getOnlinePlayers(), moduleManager.getModules());
             PluginConfigValidator.validateAndLog(this, moduleManager);
@@ -164,6 +175,37 @@ public final class MintPlugin extends JavaPlugin {
         return guiConfig;
     }
 
+    
+
+
+    public void saveGuiConfig() {
+        File file = new File(getDataFolder(), "gui.yml");
+        try {
+            guiConfig.save(file);
+        } catch (IOException ex) {
+            getLogger().warning("Failed to save gui.yml: " + ex.getMessage());
+        }
+    }
+
+    
+
+
+    public void reloadGuiFromDisk() {
+        loadGuiConfig();
+        if (moduleToggleGui != null) {
+            moduleToggleGui.reload();
+        }
+    }
+
+    
+
+
+    public void onGuiConfigUpdatedInMemory() {
+        if (moduleToggleGui != null) {
+            moduleToggleGui.reload();
+        }
+    }
+
     public FileConfiguration getLangConfig() {
         return langConfig;
     }
@@ -172,10 +214,14 @@ public final class MintPlugin extends JavaPlugin {
         return mintLang;
     }
 
-    /**
-     * Lazily builds a {@link URLClassLoader} over {@code plugins/Mint/lib/*.jar} (JDBC, Mongo, etc.).
-     * Returns {@code null} when the lib folder has no jars.
-     */
+    public DisplayEntityController getDisplayEntityController() {
+        return displayEntityController;
+    }
+
+    
+
+
+
     public ClassLoader runtimeLibrariesClassLoaderOrNull() {
         URLClassLoader existing = runtimeLibrariesClassLoader;
         if (existing != null) {
@@ -204,7 +250,7 @@ public final class MintPlugin extends JavaPlugin {
                 try {
                     cl.close();
                 } catch (IOException ignored) {
-                    // Best-effort release of jar file handles.
+                    
                 }
             }
         }
@@ -231,8 +277,7 @@ public final class MintPlugin extends JavaPlugin {
             config.setDefaults(defaults);
             config.options().copyDefaults(true);
 
-            String pluginVersion = getDescription().getVersion();
-            config.set("config-version", pluginVersion);
+            config.set("config-version", MintVersion.plugin(this));
             saveConfig();
         } catch (IOException ex) {
             getLogger().warning("Failed to persist config.yml defaults: " + ex.getMessage());
@@ -254,7 +299,7 @@ public final class MintPlugin extends JavaPlugin {
                 );
                 loaded.setDefaults(defaults);
                 loaded.options().copyDefaults(true);
-                loaded.set("gui-version", getDescription().getVersion());
+                loaded.set("gui-version", MintVersion.plugin(this));
                 loaded.save(file);
             }
         } catch (IOException ex) {
@@ -279,11 +324,7 @@ public final class MintPlugin extends JavaPlugin {
                 );
                 loaded.setDefaults(defaults);
                 loaded.options().copyDefaults(true);
-                try {
-                    loaded.set("lang-version", getPluginMeta().getVersion());
-                } catch (NoSuchMethodError ex) {
-                    loaded.set("lang-version", getDescription().getVersion());
-                }
+                loaded.set("lang-version", MintVersion.plugin(this));
                 loaded.save(file);
             }
         } catch (IOException ex) {

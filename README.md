@@ -4,104 +4,27 @@
 
 # Mint
 
-🍃 **A Lovingly Crafted Quality of Life Extension** — Quark-style tweaks for Paper and Folia (Experimental). 🍃
+🍃 **A Lovingly Crafted Quality of Life Extension** — Quark-style tweaks for Paper and Folia. 🍃
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-Paper%20%7C%20Folia-orange)
 ![License](https://img.shields.io/github/license/BuddySirJava/Mint?label=License&color=blue)
 
 </div>
 
-Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per-player toggles, WorldGuard/GriefPrevention integration, multiple storage backends, and requires zero client-side mods.
+Mint ships **29** lightweight, vanilla-friendly gameplay modules. Each one can be toggled per-player, integrates with common protection plugins, supports multiple storage backends, and requires no client mods.
 
 ## Features
 
-**Building & Placement**
+Mint ships 29 lightweight modules grouped by category:
 
-- **Vertical & Mixed Slabs:** Place slabs vertically, or combine two different slab types in one block space.
+- [Building](docs/building.md)
+- [Farming](docs/farming.md)
+- [Inventory](docs/inventory.md)
+- [Interaction](docs/interaction.md)
+- [Mobility](docs/mobility.md)
+- [Transport](docs/transport.md)
+- [Entity](docs/entity.md)
 
-  <details>
-  <summary>View Demo</summary>
-
-  ![Vertical Slab Demo](media/modules/vertical-slab.gif)
-
-  ![Mixed Slab Demo](media/modules/mixed-slab.gif)
-
-  </details>
-
-- **Block Decoration:** Apply decorative skins to various blocks (fences, stairs, trapdoors, pots, etc.).
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![Block Decoration Demo](media/modules/block-decoration.gif)
-
-  </details>
-
-- **Carpet Geometry:** Craft geometric carpet patterns via the stonecutter.
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![Carpet Geometry Demo](media/modules/carpet-geometry.gif)
-
-  </details>
-
-- **Ladder Place:** Quickly place ladders above/below your current position.
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![Fast Ladder Demo](media/modules/fast-ladder.gif)
-
-  </details>
-
-**Movement & Transportation**
-
-- **Bedrock Bridging:** Placement preview and godbridge mode.
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![Bedrock Bridging Demo](media/modules/bedrock-bridging.gif)
-
-  </details>
-
-- **Fast Ladders & Sprint Retention:** Climb smoother and keep momentum after stopping.
-- **Vehicles:** Smoother boat handling, faster minecarts, and chain-linkable carts.
-- **Chicken Glide:** Carry chickens for a slow-falling glide effect.
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![Chicken Glide Demo](media/modules/chicken-pickup.gif)
-
-  </details>
-
-**Interaction & Convenience**
-
-- **Inventory & Tools:** Shift-right-click to sort containers, Auto-Tool selection, and Auto-Refill for hotbars.
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![AutoTool Demo](media/modules/autotool.gif)
-
-  </details>
-
-- **Doors:** Double doors open together, left-click to knock.
-- **Slab Breaker:** Break exactly one half of a double slab.
-
-  <details>
-  <summary>View Demo</summary>
-
-  ![Slab Breaker Demo](media/modules/slab-breaker.gif)
-
-  </details>
-
-**Aesthetics**
-
-- **Frames & Paintings:** Toggle item frame visibility with shears; scroll through painting variants.
-- **Leash Decoration:** Link fences with leads and swing from them.
 
 ## Installation
 
@@ -111,26 +34,36 @@ Mint provides 20+ lightweight, vanilla-friendly gameplay tweaks. It features per
 
 **Requirements:** Paper 1.21.4+ Java 21+. (Folia support is currently **Experimental**)
 
+**Optional integrations:** PlaceholderAPI, WorldGuard, GriefPrevention, Towny, and BentoBox (soft-dependencies).
+
 ## Commands & Permissions
 
-| Command                             | Description              | Permission                  |
+| Command | Description | Permission |
 | ----------------------------------- | ------------------------ | --------------------------- |
-| `/mint`                             | Open personal module GUI | `mint.gui` (Default: true)  |
-| `/mint help` / `about`              | Standard info commands   | -                           |
-| `/mint admin reload`                | Reload configuration     | `mint.admin`, `mint.reload` |
-| `/mint admin modules`               | List all module states   | `mint.admin`                |
-| `/mint admin toggle <mod> [player]` | Toggle a module          | `mint.admin`, `mint.toggle` |
-| `/mint admin global <mod> <on/off>` | Globally toggle a module | `mint.admin.global`         |
-| `/mint admin save`                  | Save config to disk      | `mint.reload`               |
+| `/mint` | Open personal module GUI | `mint.gui` (Default: true) |
+| `/mint help` / `about` | Standard info commands | — |
+| `/mint admin reload` | Reload configuration | `mint.admin`, `mint.reload` |
+| `/mint admin modules` | List all module states | `mint.admin` |
+| `/mint admin toggle <mod> [player]` | Toggle a module | `mint.toggle`; `mint.toggle.others` when `[player]` is set |
+| `/mint admin global <mod> <on/off>` | Globally toggle a module in config | `mint.admin.global` |
+| `/mint admin profile list` | List saved module presets | `mint.admin.profile` |
+| `/mint admin profile save <name> [player]` | Snapshot a player's enabled modules | `mint.admin.profile` |
+| `/mint admin profile load <name> [player]` | Apply a preset to a player | `mint.admin.profile` |
+| `/mint admin profile delete <name>` | Remove a preset from config | `mint.admin.profile` |
+| `/mint admin save` | Save config to disk | `mint.reload` |
 
 *Bypass region protections using `mint.bypass.protection`.*
 
 ## Technical Details
 
 - **Storage:** Supports YAML (default), H2, MySQL, MariaDB, and MongoDB.
-- **Performance:** Fully Folia-compatible and multi-threaded.
-- **Protection:** Automatically respects WorldGuard and GriefPrevention build permissions.
+- **Performance:** Folia-aware scheduling; async access is guarded for region-thread safety.
+- **Protection:** Respects WorldGuard, GriefPrevention, Towny, and BentoBox build rules when those plugins are present.
 - **Customization:** Full GUI and message customization via `gui.yml` and `lang.yml` (MiniMessage supported).
+- **PlaceholderAPI:** `%mint_modules_total%` (personal modules count), `%mint_modules_server_total%`, `%mint_modules_enabled_count%` (personal enabled for the player). `%mint_module_<key>%` uses per-player state for personal modules and config-only for server-wide modules (`%mint_global_<key>%` always reflects config).
+- **Tests:** `mvn test` runs unit tests (including Folia compatibility guards).
+
+**Config note:** Reacharound Placement still honors the legacy `modules.bedrock-bridging.enabled` flag if `modules.reacharound-placement.enabled` is absent, so older configs keep working.
 
 ## Building from Source
 ```bash

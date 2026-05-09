@@ -1,6 +1,7 @@
 package ir.buddy.mint.util;
 
 import ir.buddy.mint.MintPlugin;
+import ir.buddy.mint.MintVersion;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -76,11 +77,7 @@ public final class MintLang {
     }
 
     public String pluginVersion() {
-        try {
-            return plugin.getPluginMeta().getVersion();
-        } catch (NoSuchMethodError ex) {
-            return plugin.getDescription().getVersion();
-        }
+        return MintVersion.plugin(plugin);
     }
 
     public String pluginAuthor() {
@@ -90,7 +87,7 @@ public final class MintLang {
                 return String.join(", ", authors);
             }
         } catch (NoSuchMethodError ignored) {
-            // fall through
+            
         }
         if (!plugin.getDescription().getAuthors().isEmpty()) {
             return String.join(", ", plugin.getDescription().getAuthors());

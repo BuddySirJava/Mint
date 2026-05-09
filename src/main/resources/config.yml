@@ -2,26 +2,45 @@ storage:
   download-missing-libraries: true
   player-toggles:
     type: yaml
+
+# Save reusable per-player toggle sets with:
+# /mint admin profile save <name> [player]
+# /mint admin profile load <name> [player]
+# /mint admin profile delete <name>
+profiles: {}
+
+display-entity-control:
+  enabled: true
+  # Per-chunk hard cap for Mint-managed display entities.
+  # Set to 0 to disable per-chunk capping.
+  per-chunk-hard-cap: 96
+  # On enable/reload, prune overflow in currently loaded chunks.
+  startup-prune-loaded-chunks: true
+  # Prune overflow each time a chunk is loaded.
+  prune-on-chunk-load: true
+  # Log when pruning occurs due to caps.
+  log-prunes: true
+
 modules:
-  bedrock-bridging:
-    godbridge:
-      enabled: true
-      min-pitch: 75.0
-      max-pitch: 85.0
-      max-distance: 1.5
-    enabled: true
-    default-on-first-join: false
+  reacharound-placement:
+    leniency: 0.5
+    whitelist: []
+    blacklist: []
     visualizer:
       thickness: 0.008
       material: BLACK_STAINED_GLASS
       brightness:
         block: 15
         sky: 15
-    anti-choke:
-      enabled: true
-      auto-correct: true
-      min-pitch: 15.0
-      max-pitch: 70.0
+    # Permission defaults to mint.module.<module-key> when omitted.
+    permission: mint.module.reacharound-placement
+    # Per-world controls:
+    # mode: all | whitelist | blacklist
+    worlds:
+      mode: all
+      list: []
+    enabled: true
+    default-on-first-join: false
   boat-improvements:
     enabled: true
     default-on-first-join: true
@@ -53,6 +72,9 @@ modules:
   door-knock:
     enabled: true
     default-on-first-join: true
+  sign-items:
+    enabled: true
+    default-on-first-join: true
   ladder-place:
     enabled: true
     default-on-first-join: true
@@ -80,5 +102,46 @@ modules:
   auto-refill:
     enabled: true
     default-on-first-join: false
+  expanded-item-interactions:
+    enabled: true
+    default-on-first-join: true
+  dyeable-item-frames:
+    enabled: true
+    default-on-first-join: true
+  bone-meal-anything:
+    enabled: true
+    default-on-first-join: true
+    max-cactus-height: 3
+    max-sugar-cane-height: 3
+  crop-interact:
+    enabled: true
+    default-on-first-join: true
+  chopdown:
+    enabled: true
+    default-on-first-join: true
+    min-logs: 3
+    min-leaves: 5
+    trunk-min-height: 3
+    leaf-steps: 4
+    max-horizontal-offset: 6
+    max-blocks: 256
+    search-radius: 10
+    sound:
+      volume: 1.15
+      pitch: 0.9
+  torch-lighting:
+    enabled: true
+    default-on-first-join: true
+    furnace-burn-ticks: 200
+    blacklist: []
+  feather-pluck:
+    enabled: true
+    default-on-first-join: true
+    cooldown-seconds: 300
+    feather-drop-min: 1
+    feather-drop-max: 3
+  # Applies to everyone when enabled (no per-player toggle or mint.module permission).
+  vexes-die-with-their-masters:
+    enabled: true
 
-config-version: 1.0.0
+config-version: ${project.version}

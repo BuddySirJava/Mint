@@ -1,6 +1,7 @@
 package ir.buddy.mint.integration;
 
 import ir.buddy.mint.MintPlugin;
+import ir.buddy.mint.MintVersion;
 import ir.buddy.mint.module.Module;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -30,7 +31,7 @@ public class MintPlaceholders extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return plugin.getDescription().getVersion();
+        return MintVersion.plugin(plugin);
     }
 
     @Override
@@ -43,12 +44,16 @@ public class MintPlaceholders extends PlaceholderExpansion {
         Player player = offlinePlayer != null ? offlinePlayer.getPlayer() : null;
 
         if (params.equalsIgnoreCase("modules_total")) {
-            return String.valueOf(plugin.getModuleManager().getModules().size());
+            return String.valueOf(plugin.getModuleManager().getPlayerScopedModules().size());
+        }
+
+        if (params.equalsIgnoreCase("modules_server_total")) {
+            return String.valueOf(plugin.getModuleManager().getServerScopedModules().size());
         }
 
         if (params.equalsIgnoreCase("modules_enabled_count")) {
-            long count = plugin.getModuleManager().getModules().stream()
-                    .filter(module -> plugin.getPlayerModulePreferences().isEnabledFor(player, module))
+            long count = plugin.getModuleManager().getPlayerScopedModules().stream()
+                    .filter(module -> plugin.getPlayerModulePreferences().isPersonalModuleEnabled(player, module))
                     .count();
             return String.valueOf(count);
         }
@@ -59,7 +64,11 @@ public class MintPlaceholders extends PlaceholderExpansion {
             if (module.isEmpty()) {
                 return "unknown";
             }
-            return plugin.getPlayerModulePreferences().isEnabledFor(player, module.get()) ? "enabled" : "disabled";
+            Module m = module.get();
+            if (m.isServerScoped()) {
+                return m.isEnabledByConfig(plugin.getConfig()) ? "enabled" : "disabled";
+            }
+            return plugin.getPlayerModulePreferences().isPersonalModuleEnabled(player, m) ? "enabled" : "disabled";
         }
 
         if (params.toLowerCase().startsWith("global_")) {

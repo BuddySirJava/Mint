@@ -88,7 +88,6 @@ public class YamlPlayerToggleStorage implements PlayerToggleStorage {
     @Override
     public void setToggle(UUID playerUuid, String moduleKey, boolean enabled) {
         pendingWrites.computeIfAbsent(playerUuid, ignored -> new ConcurrentHashMap<>()).put(moduleKey, enabled);
-        // Actual save happens in batch via saveTask
     }
 
     @Override
@@ -97,7 +96,6 @@ public class YamlPlayerToggleStorage implements PlayerToggleStorage {
             saveTask.cancel();
             saveTask = null;
         }
-        // Flush any pending writes
         if (!pendingWrites.isEmpty()) {
             for (Map.Entry<UUID, Map<String, Boolean>> entry : pendingWrites.entrySet()) {
                 savePlayerToggles(entry.getKey(), entry.getValue());

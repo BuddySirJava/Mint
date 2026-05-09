@@ -11,18 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-/**
- * Loads optional runtime jars (JDBC, Mongo sync driver, etc.) from {@code plugins/&lt;PluginName&gt;/lib/*.jar}.
- */
+
+
+
 public final class MintJdbcLibraryLoader {
 
     private MintJdbcLibraryLoader() {
     }
 
-    /**
-     * @return a classloader over all {@code .jar} files in the plugin data {@code lib} folder,
-     *         or {@code null} if the folder is missing or contains no jars
-     */
+    
+
+
+
     public static URLClassLoader tryCreate(JavaPlugin plugin) {
         File dir = new File(plugin.getDataFolder(), "lib");
         File[] files = dir.listFiles();

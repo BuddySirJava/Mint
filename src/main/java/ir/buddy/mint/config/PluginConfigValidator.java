@@ -1,6 +1,7 @@
 package ir.buddy.mint.config;
 
 import ir.buddy.mint.MintPlugin;
+import ir.buddy.mint.MintVersion;
 import ir.buddy.mint.module.Module;
 import ir.buddy.mint.module.ModuleManager;
 import ir.buddy.mint.player.storage.PlayerToggleStorageFactory;
@@ -16,8 +17,28 @@ public final class PluginConfigValidator {
     }
 
     public static void validateAndLog(MintPlugin plugin, ModuleManager moduleManager) {
+        logConfigFileVersions(plugin);
         validateModuleKeys(plugin, moduleManager);
         validateStorageSettings(plugin);
+    }
+
+    
+
+
+    private static void logConfigFileVersions(MintPlugin plugin) {
+        String jar = MintVersion.plugin(plugin);
+        String cfg = plugin.getConfig().getString("config-version");
+        String gui = plugin.getGuiConfig() != null ? plugin.getGuiConfig().getString("gui-version") : null;
+        String lang = plugin.getLangConfig() != null ? plugin.getLangConfig().getString("lang-version") : null;
+        if (cfg != null && !cfg.equals(jar)) {
+            plugin.getLogger().info("config.yml config-version is " + cfg + " (running Mint " + jar + "); defaults merged when outdated.");
+        }
+        if (gui != null && !gui.equals(jar)) {
+            plugin.getLogger().info("gui.yml gui-version is " + gui + " (running Mint " + jar + "); defaults merged when outdated.");
+        }
+        if (lang != null && !lang.equals(jar)) {
+            plugin.getLogger().info("lang.yml lang-version is " + lang + " (running Mint " + jar + "); defaults merged when outdated.");
+        }
     }
 
     private static void validateModuleKeys(MintPlugin plugin, ModuleManager moduleManager) {

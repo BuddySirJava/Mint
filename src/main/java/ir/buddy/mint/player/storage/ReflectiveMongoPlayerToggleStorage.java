@@ -13,9 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-/**
- * Mongo toggle storage using only reflection so the sync driver can live in {@code plugins/Mint/lib/}.
- */
+
+
+
 public final class ReflectiveMongoPlayerToggleStorage implements PlayerToggleStorage {
 
     private final MintPlugin plugin;
@@ -190,7 +190,7 @@ public final class ReflectiveMongoPlayerToggleStorage implements PlayerToggleSto
             try {
                 clientClose.invoke(mongoClient);
             } catch (ReflectiveOperationException ignored) {
-                // Best-effort close.
+                
             }
         }
     }

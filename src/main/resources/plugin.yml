@@ -1,11 +1,11 @@
 name: Mint
-version: 1.0.0
+version: ${project.version}
 main: ir.buddy.mint.MintPlugin
 api-version: '1.21'
 folia-supported: true
 author: BuddySirJava
 website: https://ir.buddy
-softdepend: [PlaceholderAPI, WorldGuard, GriefPrevention]
+softdepend: [PlaceholderAPI, WorldGuard, GriefPrevention, Towny, BentoBox]
 commands:
   mint:
     description: Main Mint command
@@ -16,6 +16,9 @@ permissions:
     default: op
   mint.admin.global:
     description: Allows /mint admin global to enable or disable modules in config for all players
+    default: op
+  mint.admin.profile:
+    description: Allows /mint admin profile list/save/load/delete for module presets
     default: op
   mint.reload:
     description: Allows reloading Mint
@@ -32,3 +35,6 @@ permissions:
   mint.gui:
     description: Allows opening the personal Mint modules GUI
     default: true
+  mint.module.*:
+    description: Grants access to all permission-gated Mint modules
+    default: op

@@ -26,11 +26,19 @@ public interface Module {
         return config.getBoolean(getConfigPath() + ".enabled", true);
     }
 
-    /**
-     * When a player has no stored preference yet, this value is used (if the module is enabled in config).
-     * Missing key defaults to {@code true} so existing configs without the option keep prior behavior.
-     */
+    
+
+
+
     default boolean defaultOnFirstJoin(org.bukkit.configuration.file.FileConfiguration config) {
         return config.getBoolean(getConfigPath() + ".default-on-first-join", true);
+    }
+
+    
+
+
+
+    default boolean isServerScoped() {
+        return false;
     }
 }

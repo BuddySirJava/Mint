@@ -1,27 +1,75 @@
-gui-version: 1.0.0
+gui-version: ${project.version}
 
 crafting-opener:
   enabled: true
   permission: mint.gui
-  update-interval-ticks: 20
   inject-only-when-result-empty: true
   item:
     material: BOOK
     glow: true
     name: "&6Mint Modules"
     lore:
-      - "&7Click to open your module toggles"
+      - "&7Open module toggles"
 
 gui:
-  title: "&8Mint Modules &7(%page%/%pages%)"
-  rows: 6
-  # If empty, all slots except pagination slots are used automatically.
-  module-slots: []
+  module-title: "&8Mint Modules &7(%category%) &8(%page%/%pages%)"
+  category-title: "&8Mint Categories &7(%page%/%pages%)"
+  default-layout: single-page
+  module-slot-overrides: {}
+
+  layouts:
+    order: [single-page]
+    single-page:
+      rows: 5
+      category-slots: [1, 2, 3, 4, 5,6,7,8,9]
+      module-slots: [19, 20 ,21, 22 ,23 ,24, 25, 28,29,30,31,32,33,34,37,38,39,40,41,42,43]
+
+      background:
+        enabled: true
+        material: BLACK_STAINED_GLASS_PANE
+        name: " "
+      navigation:
+        back-slot: -1
+        layout-switch-slot: -1
 
   background:
     enabled: true
     material: BLACK_STAINED_GLASS_PANE
     name: " "
+
+  categories:
+    enabled: true
+    order: [building, mobility, inventory, interaction, farming, transport, entity, other]
+    default-material: CHEST
+    item-lore:
+      - "&7Modules: &f%count%"
+      - "&eBrowse"
+    module-overrides: {}
+    items:
+      building:
+        display-name: "&6Building"
+        material: BRICKS
+      mobility:
+        display-name: "&bMobility"
+        material: FEATHER
+      inventory:
+        display-name: "&eInventory"
+        material: CHEST
+      interaction:
+        display-name: "&dInteraction"
+        material: OAK_DOOR
+      farming:
+        display-name: "&aFarming"
+        material: WHEAT
+      transport:
+        display-name: "&9Transport"
+        material: MINECART
+      entity:
+        display-name: "&cEntity"
+        material: TOTEM_OF_UNDYING
+      other:
+        display-name: "&7Other"
+        material: BOOK
 
   module-item:
     description:
@@ -29,67 +77,84 @@ gui:
       max-chars-per-line: 36
       first-line-prefix: "&7Description: &f"
       next-line-prefix: "&f"
-
     enabled:
       material: LIME_DYE
       glow: true
       name: "&a%module%"
       lore:
         - "&7State: %state%"
-        - "&eClick to toggle"
+        - "&eToggle"
     disabled:
       material: GRAY_DYE
       name: "&c%module%"
       lore:
         - "&7State: %state%"
-        - "&eClick to toggle"
+        - "&eToggle"
 
-  # Optional per-module icon overrides by module config key (without "modules.").
-  # Example keys: offhand-torch, mixedslab, verticalslab
-  # Example:
-  #   module-icons:
-  #     offhand-torch: SOUL_TORCH
-  #     door-knock: CRIMSON_DOOR
   module-icons:
-    bedrock-bridging: BEDROCK
-    boat-improvements: OAK_BOAT
-    minecart-improvements: MINECART
-    fast-ladders: LADDER
-    shift-right-click-sort: CHEST
-    sprintretention: LEATHER_BOOTS
-    doubledoor: IRON_DOOR
-    blockdecoration: BRICKS
-    carpetgeometry: WHITE_CARPET
-    auto-tool: DIAMOND_PICKAXE
-    door-knock: OAK_DOOR
-    ladder-place: SCAFFOLDING
-    invisible-frame: GLOW_ITEM_FRAME
-    leash-decoration: LEAD
-    chicken-glide: FEATHER
-    painting-scroll: PAINTING
-    slab-breaker: IRON_PICKAXE
-    mixedslab: SMOOTH_STONE_SLAB
-    verticalslab: STONE_SLAB
     auto-refill: BUNDLE
+    auto-tool: DIAMOND_PICKAXE
+    blockdecoration: BRICKS
+    boat-improvements: OAK_BOAT
+    bone-meal-anything: BONE_MEAL
+    carpetgeometry: WHITE_CARPET
+    chicken-glide: FEATHER
+    chopdown: IRON_AXE
+    crop-interact: IRON_HOE
+    door-knock: OAK_DOOR
+    doubledoor: IRON_DOOR
+    dyeable-item-frames: ITEM_FRAME
+    expanded-item-interactions: CAKE
+    fast-ladders: LADDER
+    feather-pluck: FEATHER
+    invisible-frame: GLOW_ITEM_FRAME
+    ladder-place: SCAFFOLDING
+    leash-decoration: LEAD
+    minecart-improvements: MINECART
+    mixedslab: SMOOTH_STONE_SLAB
+    painting-scroll: PAINTING
+    reacharound-placement: BEDROCK
+    shift-right-click-sort: CHEST
+    sign-items: OAK_SIGN
+    slab-breaker: IRON_PICKAXE
+    sprintretention: LEATHER_BOOTS
+    torch-lighting: TORCH
+    verticalslab: STONE_SLAB
+    vexes-die-with-their-masters: TOTEM_OF_UNDYING
 
   pagination:
-    previous-slot: 45
-    next-slot: 53
-    close-slot: 49
-
+    slots:
+      previous: 39
+      next: 41
+      close: 40
     previous:
+      enabled: true
       material: ARROW
+      glow: false
       name: "&ePrevious Page"
-      lore: "&7Go to page &e%page%"
+      lore:
+        - "&7Page &e%page% &7of &f%pages%"
     next:
+      enabled: true
       material: ARROW
+      glow: false
       name: "&eNext Page"
-      lore: "&7Go to page &e%page%"
+      lore:
+        - "&7Page &e%page% &7of &f%pages%"
     close:
+      enabled: true
       material: BARRIER
+      glow: false
       name: "&cClose"
       lore:
-        - "&7Close the module menu"
+        - "&7Close menu"
+
+  navigation:
+    back:
+      material: BOOK
+      name: "&bBack"
+      lore:
+        - "&7Categories"
 
 messages:
   state-enabled: "&aEnabled"

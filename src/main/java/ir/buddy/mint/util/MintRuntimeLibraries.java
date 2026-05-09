@@ -12,22 +12,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-/**
- * Ensures {@code plugins/Mint/lib/} contains third-party jars (JDBC, Mongo, etc.) that are not
- * embedded in the slim plugin jar. Missing jars are downloaded on an <strong>async</strong>
- * worker when {@code storage.download-missing-libraries} is true, so the server thread is never
- * blocked on DNS or HTTPS.
- */
+
+
+
+
+
+
 public final class MintRuntimeLibraries {
 
     private MintRuntimeLibraries() {
     }
 
-    /**
-     * @param afterLibrariesResolved run on the primary server thread when storage drivers may be
-     *                                 loaded (all jars already present, download disabled, download
-     *                                 finished, or best-effort after partial failure).
-     */
+    
+
+
+
+
     public static void prepare(MintPlugin plugin, Runnable afterLibrariesResolved) {
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("storage.player-toggles");
         String type = PlayerToggleStorageFactory.readSettings(section).normalizedType();

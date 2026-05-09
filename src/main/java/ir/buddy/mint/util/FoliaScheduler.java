@@ -11,13 +11,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-/**
- * Schedules work for Folia (region/entity-bound) and plain Paper (main-thread Bukkit tasks).
- * <p>
- * Paper documents recommend using {@link org.bukkit.scheduler.BukkitScheduler} when the server is
- * not Folia; using only {@link GlobalRegionScheduler} / {@link RegionScheduler} for repeating work
- * can misbehave on standard Paper, so this class switches implementations based on runtime.
- */
+
+
+
+
+
+
+
 public final class FoliaScheduler {
 
     private static final boolean FOLIA = hasClass("io.papermc.paper.threadedregions.RegionizedServer");
@@ -112,11 +112,11 @@ public final class FoliaScheduler {
         return wrapBukkit(Bukkit.getScheduler().runTaskLater(plugin, task, delayTicks));
     }
 
-    /**
-     * Repeating task bound to the entity (follows across regions on Folia).
-     *
-     * @param retired optional cleanup when the entity is retired/unloaded
-     */
+    
+
+
+
+
     public static ScheduledTaskHandle runEntityAtFixedRate(
             JavaPlugin plugin,
             Entity entity,
@@ -159,9 +159,9 @@ public final class FoliaScheduler {
         return runEntityAtFixedRate(plugin, entity, initialDelayTicks, periodTicks, task, null);
     }
 
-    /**
-     * Off-thread work on Paper/Folia async scheduler (IO, CPU-heavy prep). Not for world/entity access.
-     */
+    
+
+
     public static void runAsync(JavaPlugin plugin, Runnable task) {
         if (FOLIA) {
             async().runNow(plugin, unused -> task.run());

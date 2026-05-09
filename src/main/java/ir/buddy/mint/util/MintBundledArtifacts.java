@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Maven Central coordinates for jars shipped in {@code target/mint-lib/} (offline bundle) and
- * optionally downloaded into {@code plugins/Mint/lib/}. Versions must match {@code pom.xml}.
- * bStats is not listed here: it is shaded into the Mint plugin jar with a relocated package.
- */
+
+
+
+
+
 public final class MintBundledArtifacts {
 
     public static final String MAVEN_CENTRAL_PREFIX = "https://repo1.maven.org/maven2/";

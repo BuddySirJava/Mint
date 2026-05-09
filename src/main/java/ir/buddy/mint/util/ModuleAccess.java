@@ -13,7 +13,7 @@ public final class ModuleAccess {
 
     public static boolean isEnabledForPlayer(JavaPlugin plugin, Module module, Player player) {
         if (plugin instanceof MintPlugin mintPlugin) {
-            return mintPlugin.getPlayerModulePreferences().isEnabledFor(player, module);
+            return mintPlugin.getPlayerModulePreferences().isPersonalModuleEnabled(player, module);
         }
         return true;
     }
