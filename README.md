@@ -8,17 +8,30 @@
 
 <p>
   <img src="https://img.shields.io/badge/Minecraft-Paper%20%7C%20Folia-orange" alt="Minecraft" />
+  <img src="https://img.shields.io/badge/Java-21-ea9c1b?logo=openjdk&logoColor=white" alt="Java 21" />
+  <img src="https://img.shields.io/github/actions/workflow/status/BuddySirJava/Mint/ci.yml?branch=main&label=CI" alt="CI" />
   <img src="https://img.shields.io/github/license/BuddySirJava/Mint?label=License&color=blue" alt="License" />
 </p>
 
 </div>
 
-Mint ships **29** lightweight, vanilla-friendly gameplay modules. Each one can be toggled per-player, integrates with common protection plugins, supports multiple storage backends, and requires no client mods.
+---
 
+**Mint** adds **29** lightweight, vanilla-friendly gameplay modules for **Paper** and **Folia**. Modules can be toggled per player, work with common protection plugins, support several storage backends, and require **no client mods**.
+
+## Table of contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Commands and permissions](#commands-and-permissions)
+- [Technical details](#technical-details)
+- [Building from source](#building-from-source)
+- [License and credits](#license-and-credits)
+- [Support and contributions](#support-and-contributions)
 
 ## Features
 
-Mint ships 29 lightweight modules grouped by category:
+Modules are documented by category (config keys, permissions, and previews where available):
 
 - [Building](docs/building.md)
 - [Farming](docs/farming.md)
@@ -30,44 +43,44 @@ Mint ships 29 lightweight modules grouped by category:
 
 ## Installation
 
-1. Download the latest releases from [Releases](https://github.com/BuddySirJava/Mint/releases).
-2. Drop it into your `plugins/` folder and restart.
-3. Configure settings via `plugins/Mint/config.yml`.
+1. Download the latest JAR from [Releases](https://github.com/BuddySirJava/Mint/releases).
+2. Place it in your server's `plugins/` directory and restart.
+3. Adjust settings in `plugins/Mint/config.yml` as needed.
 
-**Requirements:** Paper/Folia 1.21.4+ Java 21+.
+**Requirements:** Paper or Folia **1.21.4+**, Java **21+**.
 
-**Soft Dependencies** PlaceholderAPI, WorldGuard, GriefPrevention, Towny, ProtocolLib and BentoBox
+**Soft dependencies (optional):** PlaceholderAPI, WorldGuard, GriefPrevention, Towny, ProtocolLib, BentoBox.
 
-## Commands & Permissions
+## Commands and permissions
 
+| Command | Description | Permission |
+| --- | --- | --- |
+| `/mint` | Open personal module GUI | `mint.gui` (default: true) |
+| `/mint help` / `about` | Show plugin info | — |
+| `/mint admin reload` | Reload configuration | `mint.admin`, `mint.reload` |
+| `/mint admin modules` | List all module states | `mint.admin` |
+| `/mint admin toggle <mod> [player]` | Toggle a module | `mint.toggle`; `mint.toggle.others` when `[player]` is set |
+| `/mint admin global <mod> <on/off>` | Globally toggle a module in config | `mint.admin.global` |
+| `/mint admin profile list` | List saved module presets | `mint.admin.profile` |
+| `/mint admin profile save <name> [player]` | Snapshot a player's enabled modules | `mint.admin.profile` |
+| `/mint admin profile load <name> [player]` | Apply a preset to a player | `mint.admin.profile` |
+| `/mint admin profile delete <name>` | Remove a preset from config | `mint.admin.profile` |
+| `/mint admin save` | Save config to disk | `mint.reload` |
 
-| Command                                    | Description                         | Permission                                                 |
-| ------------------------------------------ | ----------------------------------- | ---------------------------------------------------------- |
-| `/mint`                                    | Open personal module GUI            | `mint.gui` (Default: true)                                 |
-| `/mint help` / `about`                     | Standard info commands              | —                                                          |
-| `/mint admin reload`                       | Reload configuration                | `mint.admin`, `mint.reload`                                |
-| `/mint admin modules`                      | List all module states              | `mint.admin`                                               |
-| `/mint admin toggle <mod> [player]`        | Toggle a module                     | `mint.toggle`; `mint.toggle.others` when `[player]` is set |
-| `/mint admin global <mod> <on/off>`        | Globally toggle a module in config  | `mint.admin.global`                                        |
-| `/mint admin profile list`                 | List saved module presets           | `mint.admin.profile`                                       |
-| `/mint admin profile save <name> [player]` | Snapshot a player's enabled modules | `mint.admin.profile`                                       |
-| `/mint admin profile load <name> [player]` | Apply a preset to a player          | `mint.admin.profile`                                       |
-| `/mint admin profile delete <name>`        | Remove a preset from config         | `mint.admin.profile`                                       |
-| `/mint admin save`                         | Save config to disk                 | `mint.reload`                                              |
+*Bypass protection checks in supported plugins with permission `mint.bypass.protection`.*
 
+## Technical details
 
-*Bypass region protections using `mint.bypass.protection`.*
+- **Storage:** YAML (default), H2, MySQL, MariaDB, MongoDB.
+- **Performance:** Folia-aware scheduling; async access guarded for region-thread safety.
+- **Protection:** Uses WorldGuard, GriefPrevention, Towny, and BentoBox rules when present.
+- **Customization:** GUI and messages via `gui.yml` and `lang.yml` (MiniMessage).
+- **PlaceholderAPI:** `%mint_modules_total%` (personal module count), `%mint_modules_server_total%`, `%mint_modules_enabled_count%` (enabled for the player). `%mint_module_<key>%` reflects per-player state for personal modules and config for server-wide modules; `%mint_global_<key>%` always reflects config.
+- **Tests:** `mvn test` runs the suite (includes Folia compatibility checks).
 
-## Technical Details
+**Config migration:** Reacharound Placement still reads the legacy `modules.bedrock-bridging.enabled` key when `modules.reacharound-placement.enabled` is omitted, so older configs keep working.
 
-- **Storage:** Supports YAML (default), H2, MySQL, MariaDB, and MongoDB.
-- **Performance:** Folia-aware scheduling; async access is guarded for region-thread safety.
-- **Protection:** Respects WorldGuard, GriefPrevention, Towny, and BentoBox build rules when those plugins are present.
-- **Customization:** Full GUI and message customization via `gui.yml` and `lang.yml` (MiniMessage supported).
-- **PlaceholderAPI:** `%mint_modules_total%` (personal modules count), `%mint_modules_server_total%`, `%mint_modules_enabled_count%` (personal enabled for the player). `%mint_module_<key>%` uses per-player state for personal modules and config-only for server-wide modules (`%mint_global_<key>%` always reflects config).
-- **Tests:** `mvn test` runs unit tests (including Folia compatibility guards).
-
-## Building from Source
+## Building from source
 
 ```bash
 git clone https://github.com/BuddySirJava/Mint.git
@@ -75,16 +88,20 @@ cd Mint
 mvn clean package
 ```
 
-## License & Credits
+Build output is under `target/`.
 
-Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark mod](https://quarkmod.net/) by Vazkii and [V-Tweaks](https://mods.oitsjustjose.com/V-Tweaks/) by oitsjustjose.
+## License and credits
 
-## Support & Contributions
+Licensed under [AGPL-3.0](LICENSE). Inspired by the [Quark](https://quarkmod.net/) mod by Vazkii and [V-Tweaks](https://mods.oitsjustjose.com/V-Tweaks/) by oitsjustjose.
 
-Mint is, and always will be, free and open-source. My goal is to solve long-standing server limitations that the community has dealt with for years. Simply using the plugin and providing feedback is the best support I could ask for! ❤️
+## Support and contributions
 
-If you'd like to support development further:
+Mint is free and open source. Feedback and real-world server use help the most.
+
+- **Issues and feature ideas:** [GitHub Issues](https://github.com/BuddySirJava/Mint/issues)
+- **Contribute:** [CONTRIBUTING.md](CONTRIBUTING.md)
+
+If you'd like to support development:
 
 - **TON:** `UQCW9EFr3jexVjVvQm-njUV-oY6bVKq6e4rZbe1D4Hcmw0sX`
-- **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)
 
