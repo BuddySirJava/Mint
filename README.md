@@ -1,18 +1,19 @@
+<div align="center">
 
+<img src="docs/media/banner.png" alt="Mint Banner" width="800" />
 
+<h1>Mint</h1>
 
+<p>🍃 <strong>A Lovingly Crafted Quality of Life Extension</strong> — Quark-style tweaks for Paper and Folia. 🍃</p>
 
-# Mint
+<p>
+  <img src="https://img.shields.io/badge/Minecraft-Paper%20%7C%20Folia-orange" alt="Minecraft" />
+  <img src="https://img.shields.io/github/license/BuddySirJava/Mint?label=License&color=blue" alt="License" />
+</p>
 
-🍃 **A Lovingly Crafted Quality of Life Extension** — Quark-style tweaks for Paper and Folia. 🍃
-
-Minecraft
-License
-
-
+</div>
 
 Mint ships **29** lightweight, vanilla-friendly gameplay modules. Each one can be toggled per-player, integrates with common protection plugins, supports multiple storage backends, and requires no client mods.
-
 
 
 ## Features
