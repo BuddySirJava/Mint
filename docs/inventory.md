@@ -11,7 +11,6 @@ These modules streamline inventory management and tool usage.
 - **Config key:** `modules.auto-tool`
 - **Description:** Automatically switches to the proper tool when breaking blocks.
 - **Permission node:** `mint.module.auto-tool` (default; override with `modules.auto-tool.permission`)
-- **Preview:** `media/modules/autotool.gif`
 
 ![Auto Tool Preview](media/modules/autotool.gif)
 

@@ -12,7 +12,8 @@
 </div>
 
 Mint ships **29** lightweight, vanilla-friendly gameplay modules. Each one can be toggled per-player, integrates with common protection plugins, supports multiple storage backends, and requires no client mods.
-We are talking Diamond Doors, Vertical Slabs, Mixed slabs and Colored ItemFrames. Make sure you checkout [Building Modules](docs/building.md)!
+
+![](media/modules/block-decoration.png)
 
 ## Features
 
