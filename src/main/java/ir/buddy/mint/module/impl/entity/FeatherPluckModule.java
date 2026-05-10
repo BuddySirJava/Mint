@@ -58,7 +58,7 @@ public final class FeatherPluckModule implements Module, Listener {
 
     @Override
     public String getDescription() {
-        return "Pluck feathers from chickens with shears with a cooldown and red highlight.";
+        return "Pluck feathers from chickens with shears.";
     }
 
     @Override
